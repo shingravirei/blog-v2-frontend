@@ -18,4 +18,23 @@ const addNewBlog = async (newObject, token) => {
     return response.data;
 };
 
-export { getAllBlogs, addNewBlog };
+const deleteBlog = async (id, token) => {
+    const config = {
+        headers: { Authorization: `bearer ${token}` }
+    };
+
+    await axios.delete(`${baseUrl}/${id}`, config);
+};
+
+const updateBloglikes = async blog => {
+    const obj = {
+        title: blog.title,
+        author: blog.author,
+        url: blog.url,
+        likes: blog.likes
+    };
+
+    await axios.put(`${baseUrl}/${blog.id}`, obj);
+};
+
+export { getAllBlogs, addNewBlog, deleteBlog, updateBloglikes };

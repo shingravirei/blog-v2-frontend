@@ -5,6 +5,7 @@ import { login } from './services/login';
 import BlogList from './components/BlogList';
 import LoginForm from './components/LoginForm';
 import AddBlog from './components/AddBlog';
+import Toggleable from './components/Togglable';
 
 const App = () => {
     const [blogs, setBlogs] = useState([]);
@@ -76,13 +77,20 @@ const App = () => {
                 <>
                     <strong>{user.name} logged in</strong>
                     <button onClick={logOut}>log out</button>
-                    <AddBlog
-                        user={user}
+                    <Toggleable buttonLabel={'New Blog'}>
+                        <AddBlog
+                            user={user}
+                            setBlogs={setBlogs}
+                            setSuccessMessage={setSuccessMessage}
+                            setErrorMessage={setErrorMessage}
+                        />
+                    </Toggleable>
+
+                    <BlogList
+                        blogs={blogs}
                         setBlogs={setBlogs}
-                        setSuccessMessage={setSuccessMessage}
-                        setErrorMessage={setErrorMessage}
+                        token={user.token}
                     />
-                    <BlogList blogs={blogs} />
                 </>
             ) : (
                 <>

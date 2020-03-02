@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 
 import { addNewBlog } from '../services/blogs';
 
-const AddBlog = ({ user, setBlogs, setErrorMessage, setSuccessMessage }) => {
+const AddBlog = ({
+    toggle,
+    user,
+    setBlogs,
+    setErrorMessage,
+    setSuccessMessage
+}) => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [url, setUrl] = useState('');
@@ -28,6 +34,7 @@ const AddBlog = ({ user, setBlogs, setErrorMessage, setSuccessMessage }) => {
                 `New blog ${response.title} by ${response.author} added!'`
             );
 
+            toggle();
             setTimeout(() => {
                 setSuccessMessage(null);
             }, 5000);
