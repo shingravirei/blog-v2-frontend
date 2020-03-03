@@ -6,11 +6,12 @@ import BlogList from './components/BlogList';
 import LoginForm from './components/LoginForm';
 import AddBlog from './components/AddBlog';
 import Toggleable from './components/Togglable';
+import { useField } from './hooks';
 
 const App = () => {
     const [blogs, setBlogs] = useState([]);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const username = useField('text', 'username');
+    const password = useField('password', 'password');
     const [user, setUser] = useState(null);
     const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
@@ -20,7 +21,10 @@ const App = () => {
         e.preventDefault();
 
         try {
-            const user = await login({ username, password });
+            const user = await login({
+                username: username.input.value,
+                password: password.input.value
+            });
 
             setUser(user);
 
@@ -34,8 +38,8 @@ const App = () => {
             }, 5000);
         }
 
-        setUsername('');
-        setPassword('');
+        username.reset();
+        password.reset();
     };
 
     const logOut = () => {
@@ -98,8 +102,6 @@ const App = () => {
                         handleLoginForm={handleLoginForm}
                         username={username}
                         password={password}
-                        setUsername={setUsername}
-                        setPassword={setPassword}
                     />
                 </>
             )}
