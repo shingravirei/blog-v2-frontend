@@ -52,10 +52,10 @@ const Blog = ({ id, token, title, author, url, likes, setBlogs }) => {
 
     return (
         <div style={blogStyle}>
-            <p onClick={handleShowOrHide}>
+            <p onClick={handleShowOrHide} className={'show-or-hide'}>
                 {title} - {author}
             </p>
-            <div style={showOrHide}>
+            <div style={showOrHide} className={'hidden-content'}>
                 <p>
                     <a href={url}>{url}</a>
                 </p>
